@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node dist/main.js",
-    "dev": "npx tsc && node dist/main.js"
+    "dev": "tsc && node dist/main.js",
+    "test": "vitest --run"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@types/node": "25.5.2",
-    "typescript": "6.0.2"
+    "typescript": "6.0.2",
+    "vitest": "4.1.2"
   }
 }
