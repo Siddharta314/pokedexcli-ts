@@ -26,6 +26,15 @@ export class PokeAPI {
       throw error;
     }
   }
+  async fetchPokemon(pokemonName: string): Promise<Pokemon> {
+    try {
+      const response = await fetch(`${PokeAPI.baseURL}/pokemon/${pokemonName}`);
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 export type ShallowLocations = {
@@ -52,7 +61,7 @@ export interface PokemonEncounter {
   };
 }
 
-type Pokemon = {
+export interface Pokemon {
   name: string;
   height: number;
   weight: number;
@@ -60,7 +69,7 @@ type Pokemon = {
   types: Type[];
   abilities: Ability[];
   base_experience: number;
-};
+}
 
 export interface Stats {
   base_stat: number;
