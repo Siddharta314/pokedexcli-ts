@@ -15,7 +15,7 @@ export class PokeAPI {
     }
   }
 
-  async fetchLocation(locationName: string): Promise<Location> {
+  async fetchLocation(locationName: string): Promise<ResponseLocation> {
     try {
       const response = await fetch(
         `${PokeAPI.baseURL}/location-area/${locationName}`,
@@ -39,3 +39,50 @@ export type Location = {
   name: string;
   url: string;
 };
+
+export interface ResponseLocation {
+  name: string;
+  pokemon_encounters: PokemonEncounter[];
+}
+
+export interface PokemonEncounter {
+  pokemon: {
+    name: string;
+    url: string;
+  };
+}
+
+type Pokemon = {
+  name: string;
+  height: number;
+  weight: number;
+  stats: Stats[];
+  types: Type[];
+  abilities: Ability[];
+  base_experience: number;
+};
+
+export interface Stats {
+  base_stat: number;
+  stat: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface Type {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface Ability {
+  ability: {
+    name: string;
+    url: string;
+  };
+  is_hidden: boolean;
+  slot: number;
+}
