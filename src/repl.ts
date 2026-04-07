@@ -26,7 +26,7 @@ export async function startREPL(state: State): Promise<void> {
         console.log("Unknown command");
       }
     } catch (error) {
-      console.error("Error executing command:", error);
+      console.error("Error executing command:", (error as Error).message);
     }
     state.rl.prompt();
   });

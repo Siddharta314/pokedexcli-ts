@@ -18,7 +18,6 @@ export async function commandExplore(
       console.log(` - ${enc.pokemon.name}`);
     }
   } catch (error) {
-    console.error("Error exploring:", error);
     throw error;
   }
 }

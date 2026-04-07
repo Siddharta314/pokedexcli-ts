@@ -21,7 +21,6 @@ export class PokeAPI {
       this.cache.add(url, data);
       return data;
     } catch (error) {
-      console.error(error);
       throw new Error(`Error fetching locations: ${(error as Error).message}`);
     }
   }
@@ -42,8 +41,7 @@ export class PokeAPI {
       this.cache.add(url, data);
       return data;
     } catch (error) {
-      console.error(error);
-      throw error;
+      throw new Error(`Error fetching location: ${(error as Error).message}`);
     }
   }
   async fetchPokemon(pokemonName: string): Promise<Pokemon> {
@@ -62,8 +60,7 @@ export class PokeAPI {
       this.cache.add(url, data);
       return data;
     } catch (error) {
-      console.error(error);
-      throw error;
+      throw new Error(`Error fetching pokemon: ${(error as Error).message}`);
     }
   }
 }

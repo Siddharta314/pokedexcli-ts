@@ -25,5 +25,7 @@ export async function commandCatch(
     } else {
       console.log(`${pokemon.name} was caught!`);
     }
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 }
