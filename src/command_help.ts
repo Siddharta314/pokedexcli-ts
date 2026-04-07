@@ -1,9 +1,9 @@
-export function commandHelp(
-  commands: Record<string, { name: string; description: string }>,
-): void {
+import { State } from "./state.js";
+
+export function commandHelp(state: State): void {
   console.log("Welcome to the Pokedex!");
   console.log("Usage:");
-  listCommands(commands);
+  listCommands(state.commands);
 }
 
 function listCommands(
