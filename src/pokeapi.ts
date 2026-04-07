@@ -1,35 +1,66 @@
+import { Cache } from "./pokecache.js";
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
+  private cache = new Cache(1800000);
 
   constructor() {}
 
   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
+    const url = pageURL ?? `${PokeAPI.baseURL}/location-area`;
+
+    const cached = this.cache.get<ShallowLocations>(url);
+    if (cached) {
+      return cached;
+    }
     try {
-      const response = await fetch(
-        pageURL ?? `${PokeAPI.baseURL}/location-area/`,
-      );
-      return await response.json();
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      const data = (await response.json()) as ShallowLocations;
+      this.cache.add(url, data);
+      return data;
     } catch (error) {
       console.error(error);
-      throw error;
+      throw new Error(`Error fetching locations: ${(error as Error).message}`);
     }
   }
 
   async fetchLocation(locationName: string): Promise<ResponseLocation> {
+    const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
+    const cached = this.cache.get<ResponseLocation>(url);
+    if (cached) {
+      return cached;
+    }
     try {
-      const response = await fetch(
-        `${PokeAPI.baseURL}/location-area/${locationName}`,
-      );
-      return await response.json();
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      const data = (await response.json()) as ResponseLocation;
+      this.cache.add(url, data);
+      return data;
     } catch (error) {
       console.error(error);
       throw error;
     }
   }
   async fetchPokemon(pokemonName: string): Promise<Pokemon> {
+    const url = `${PokeAPI.baseURL}/pokemon/${pokemonName}`;
+    const cached = this.cache.get<Pokemon>(url);
+    if (cached) {
+      return cached;
+    }
     try {
-      const response = await fetch(`${PokeAPI.baseURL}/pokemon/${pokemonName}`);
-      return await response.json();
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      const data = (await response.json()) as Pokemon;
+      this.cache.add(url, data);
+      return data;
     } catch (error) {
       console.error(error);
       throw error;
