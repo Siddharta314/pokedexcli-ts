@@ -18,9 +18,10 @@ export async function startREPL(state: State): Promise<void> {
     }
     const command = cleanIn[0];
     const handler = state.commands[command];
+    const args = cleanIn.length > 1 ? cleanIn.slice(1) : [];
     try {
       if (handler) {
-        await handler.callback(state);
+        await handler.callback(state, ...args);
       } else {
         console.log("Unknown command");
       }
