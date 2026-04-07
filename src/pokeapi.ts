@@ -8,8 +8,7 @@ export class PokeAPI {
       const response = await fetch(
         pageURL ?? `${PokeAPI.baseURL}/location-area/`,
       );
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
       console.error(error);
       throw error;
@@ -21,8 +20,7 @@ export class PokeAPI {
       const response = await fetch(
         `${PokeAPI.baseURL}/location-area/${locationName}`,
       );
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
       console.error(error);
       throw error;

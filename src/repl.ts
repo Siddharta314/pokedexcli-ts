@@ -8,9 +8,9 @@ export function cleanInput(input: string): string[] {
     .map((w) => w.toLowerCase());
 }
 
-export function startREPL(state: State): void {
+export async function startREPL(state: State): Promise<void> {
   state.rl.prompt();
-  state.rl.on("line", (input: string) => {
+  state.rl.on("line", async (input: string) => {
     const cleanIn: string[] = cleanInput(input);
     if (cleanIn.length === 0) {
       state.rl.prompt();
@@ -20,7 +20,7 @@ export function startREPL(state: State): void {
     const handler = state.commands[command];
     try {
       if (handler) {
-        handler.callback(state);
+        await handler.callback(state);
       } else {
         console.log("Unknown command");
       }
